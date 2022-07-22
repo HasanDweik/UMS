@@ -11,6 +11,7 @@ using UMS.Application.Entities.Users.Commands.RemoveUser;
 using UMS.Application.Entities.Users.Commands.UpdateUser;
 using UMS.Application.Entities.Users.Queries.GetUserById;
 using UMS.Application.Entities.Users.Queries.GetUsers;
+using UMS.Application.Entities.Users.Queries.GetUsersByCourse;
 using UMS.Domain.Models;
 using ILogger = Microsoft.Owin.Logging.ILogger;
 using ILoggerFactory = Microsoft.Owin.Logging.ILoggerFactory;
@@ -29,7 +30,7 @@ public class UserController : Controller
         _mediator = mediator;
     }
     [HttpGet()]
-    public async Task<List<UserDTO>> GetRoles()
+    public async Task<List<UserDTO>> GetUsers()
     {
         // _logger.WriteInformation("asa");
         var result = await _mediator.Send(new GetUsersQuery());
@@ -82,5 +83,18 @@ public class UserController : Controller
 
         return Ok(result);
     }
+    [HttpGet("course {id}")]
+    public async Task<List<UserDTO>> GetUsersByCourse([Required]long id)
+    {
+        var result = await _mediator.Send(new GetUsersByCourseQuery()
+        {
+            Id = id
+        });
+        return (result);
+    }
+    
+    
+    
+    
 
 }
