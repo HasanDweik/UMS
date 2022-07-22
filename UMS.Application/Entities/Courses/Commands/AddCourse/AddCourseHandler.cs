@@ -35,7 +35,7 @@ public class AddCourseHandler:IRequestHandler<AddCourseCommand,Course>
             
             //sending notification to students
 
-            var subscribers =  _context.Users.Where(obj => obj.Subscriber == true).ToList();
+            var subscribers =  _context.Users.Where(obj => obj.Subscriber == true & obj.RoleId==3).ToList();
             foreach (var VARIABLE in subscribers)
             {
                 Console.WriteLine("sending email to "+VARIABLE.Email);
@@ -43,13 +43,11 @@ public class AddCourseHandler:IRequestHandler<AddCourseCommand,Course>
                 {
                     ToEmail = VARIABLE.Email,
                     Subject = "New Course Available",
-                    Body = "Hello Student," +
+                    Body = $"Hello {VARIABLE.Name}," +
                            "\n" +
                            "Kindly note that a new course has been added."
                 });
                 Console.WriteLine("email sent to "+VARIABLE.Email);
-
-
             }
         }
         catch (Exception e)

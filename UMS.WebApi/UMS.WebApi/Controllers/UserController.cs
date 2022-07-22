@@ -3,6 +3,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using Microsoft.Owin.Logging;
 using UMS.Application.DTOs;
 using UMS.Application.Entities.Roles.Queries.GetRoleById;
 using UMS.Application.Entities.Users.Commands.AddUser;
@@ -11,6 +12,8 @@ using UMS.Application.Entities.Users.Commands.UpdateUser;
 using UMS.Application.Entities.Users.Queries.GetUserById;
 using UMS.Application.Entities.Users.Queries.GetUsers;
 using UMS.Domain.Models;
+using ILogger = Microsoft.Owin.Logging.ILogger;
+using ILoggerFactory = Microsoft.Owin.Logging.ILoggerFactory;
 
 namespace UMS.WebApi.Controllers;
 
@@ -28,6 +31,7 @@ public class UserController : Controller
     [HttpGet()]
     public async Task<List<UserDTO>> GetRoles()
     {
+        // _logger.WriteInformation("asa");
         var result = await _mediator.Send(new GetUsersQuery());
         return  result;
     }

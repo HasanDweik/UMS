@@ -12,7 +12,7 @@ public class SignalRController : Controller
     public async Task<IActionResult> SendMessage(String message)
     {
         MessageHub _messageHub = new MessageHub();
-        _messageHub.SendMessage(message);
+       await _messageHub.SendMessage(message);
         return Ok();
     }
 }
