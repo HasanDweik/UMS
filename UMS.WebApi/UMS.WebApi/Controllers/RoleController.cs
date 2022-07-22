@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UMS.Application.DTOs;
 using UMS.Application.Entities.Roles.Commands.AddRole;
@@ -9,6 +10,7 @@ using UMS.Application.Entities.Roles.Commands.UpdateRole;
 using UMS.Application.Entities.Roles.Queries.GetRoleById;
 using UMS.Application.Entities.Roles.Queries.GetRoles;
 using UMS.Domain.Models;
+using UMS.Infrastructure.Abstraction.Services;
 
 namespace UMS.WebApi.Controllers;
 
@@ -20,11 +22,11 @@ public class RoleController : Controller
 {
     private readonly IMediator _mediator;
 
+
     public RoleController(IMediator mediator)
     {
         _mediator = mediator;
     }
-
     [HttpGet()]
     public async Task<List<Role>> GetRoles()
     {

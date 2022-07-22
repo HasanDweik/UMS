@@ -7,7 +7,7 @@ namespace UMS.Domain.Models
 {
     public partial class UmsContext : DbContext
     {
-        public UmsContext()
+       public UmsContext()
         {
         }
 
@@ -156,7 +156,7 @@ namespace UMS.Domain.Models
 
                 entity.Property(e => e.Name).HasColumnType("character varying");
 
-                entity.Property(e => e.RoleId);
+                entity.Property(e => e.Subscriber).HasDefaultValueSql("true");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)

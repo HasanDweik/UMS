@@ -23,6 +23,7 @@ public class UpdateUserHandler:IRequestHandler<UpdateUserCommand,UserDTO>
         user.Name = request.Name;
         user.Email = request.Email;
         user.RoleId = request.RoleId;
+        user.Subscriber = request.Subscriber;
         _context.Users.Update(user);
         _context.SaveChanges();
         return _mapper.Map<UserDTO>(user);

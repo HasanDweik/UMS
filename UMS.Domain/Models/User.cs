@@ -16,6 +16,7 @@ namespace UMS.Domain.Models
         public long RoleId { get; set; }
         public string KeycloakId { get; set; } = null!;
         public string Email { get; set; } = null!;
+        public bool? Subscriber { get; set; }
 
         public virtual Role Role { get; set; } = null!;
         public virtual ICollection<ClassEnrollment> ClassEnrollments { get; set; }

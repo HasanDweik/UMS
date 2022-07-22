@@ -43,10 +43,15 @@ public class CourseController:Controller
     }
     
     [HttpPost("Create")]
-    public async Task<IActionResult> AddRole(AddCourseCommand addCourseCommand)
+    public async Task<IActionResult> AddRole(long userRole, AddCourseCommand addCourseCommand)
     {
-        var result =  await _mediator.Send(addCourseCommand);
-        return Ok(result);
+        if (userRole == 1)
+        {
+            var result = await _mediator.Send(addCourseCommand);
+            return Ok(result);
+        }
+
+        return BadRequest("The user must be an admin to add a course");
     }
     
      [HttpDelete("Delete")]

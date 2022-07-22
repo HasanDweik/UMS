@@ -2,6 +2,8 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.Owin.Logging;
 using UMS.Application.DTOs;
 using UMS.Application.Entities.Roles.Queries.GetRoleById;
 using UMS.Application.Entities.Users.Commands.AddUser;
@@ -9,7 +11,10 @@ using UMS.Application.Entities.Users.Commands.RemoveUser;
 using UMS.Application.Entities.Users.Commands.UpdateUser;
 using UMS.Application.Entities.Users.Queries.GetUserById;
 using UMS.Application.Entities.Users.Queries.GetUsers;
+using UMS.Application.Entities.Users.Queries.GetUsersByCourse;
 using UMS.Domain.Models;
+using ILogger = Microsoft.Owin.Logging.ILogger;
+using ILoggerFactory = Microsoft.Owin.Logging.ILoggerFactory;
 
 namespace UMS.WebApi.Controllers;
 
@@ -25,8 +30,9 @@ public class UserController : Controller
         _mediator = mediator;
     }
     [HttpGet()]
-    public async Task<List<UserDTO>> GetRoles()
+    public async Task<List<UserDTO>> GetUsers()
     {
+        // _logger.WriteInformation("asa");
         var result = await _mediator.Send(new GetUsersQuery());
         return  result;
     }
@@ -77,5 +83,18 @@ public class UserController : Controller
 
         return Ok(result);
     }
+    [HttpGet("course {id}")]
+    public async Task<List<UserDTO>> GetUsersByCourse([Required]long id)
+    {
+        var result = await _mediator.Send(new GetUsersByCourseQuery()
+        {
+            Id = id
+        });
+        return (result);
+    }
+    
+    
+    
+    
 
 }

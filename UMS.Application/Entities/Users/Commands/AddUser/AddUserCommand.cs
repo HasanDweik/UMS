@@ -10,4 +10,7 @@ public class AddUserCommand:IRequest<UserDTO>
     public string Email {get; set; }
     public long RoleId {get; set; }
     public string KeycloakId { get; set; }
+    public bool? Subscriber { get; set; }
+
+    
 }
